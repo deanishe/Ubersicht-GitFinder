@@ -53,11 +53,11 @@ exec '/usr/bin/osascript '+__dirname+'/FinderFolders.scpt', (error, stdout, stde
 			exec 'git status >/dev/null 2>&1 && echo "$(git status -b --porcelain --ignored)" && echo "BRANCHES:$(git branch -v | wc -l | sed \'s/ //g\')" && echo "STASH:$(git stash list | wc -l | sed \'s/ //g\')"  && echo "SIZE:$(du -h -d0 |awk \'{print $1}\')"  && echo "NAME:$(basename \"$(git rev-parse --show-toplevel)\")" || exit 1;', {cwd:thepath}, (error, stdout, stderr) ->
 				GitStatus = stdout.trim()
 				if error is null
-					
+
 					GitStatusInfo = GitStatus.split('\n')[0]
 					# console.log "Git Infos: "+GitStatusInfo
 					# console.log "Git Status:\n"+GitStatus
-					repo = 
+					repo =
 						path: thepath
 						name: GitStatus.extract('NAME:(.*)$',1).replace(/[_-]+/g,' ').capitalizeAll()
 						branch: GitStatusInfo.extract '## (([A-Za-z0-9-_]+)[.]{0,3})', 2
@@ -81,7 +81,7 @@ exec '/usr/bin/osascript '+__dirname+'/FinderFolders.scpt', (error, stdout, stde
 				if parsedpath is paths.length
 					data.gitrepos = gitrepos
 					data.prefs = config.prefs if config.prefs
-					console.log JSON.stringify data			
-	
+					console.log JSON.stringify data
+
 
 
